@@ -286,7 +286,134 @@ car3.start()
 
 # Single Inheritance -> A single child class is derived from single base(parent) class
 
-# Multi-level Inheritance -> A class derives properties from a class which already derives property from another class. (Multiple child & parent class is available in a single chain)
+# Multi-level Inheritance -> A class derives properties from a class which already derives property from another class. (Multiple child & parent class is available in a single chain)  It can have any level of inheritance.
 
-# Multiple Inheritance -> 
+# Multiple Inheritance -> A single derived class inherites properties from multiple classes.
+
+class A:
+    varA = "This is class A."
+
+class B:
+    varB = "This is class B."
+
+class C(A, B):
+    varC = "This is class C."
+
+c1 = C()
+
+print(c1.varC)
+print(c1.varB)
+print(c1.varA)
+
+
+# Super Method -> super() method is used to access methods of the parent class.
+
+class Car:
+    def __init__(self, type):
+        self.type = type
+    
+    @staticmethod
+    def start():
+        print("car started..")
+
+    @staticmethod
+    def stop():
+        print("car stopped.")
+
+class ToyotaCar(Car):
+    def __init__(self, name, type):
+        self.name = name
+        super().__init__(type)
+
+car1 = ToyotaCar("prius", "petrol")
+print(car1.type)
+
+# Class Method -> A class method is bound to the class & receives the class as an implicit first argument.
+# Note - static method can't access or modify class state & generally for utility.
+
+'''
+class Student:
+    @classmethod    #decorator
+    def college(cls):
+        pass
+'''
+
+class Person:
+    name = "anyx"
+
+    def changeName(self, name):
+        self.name = name
+
+p1 = Person()
+p1.changeName("rahul")
+print(p1.name)
+print(Person.name)
+
+# Method - 1
+class Person:
+    name = "anyx"
+
+    def changeName(self, name):
+        Person.name = name
+
+p1 = Person()
+p1.changeName("rahul")
+print(p1.name)
+print(Person.name)
+
+# Method - 2
+class Person:
+    name = "anyx"
+
+    def changeName(self, name):
+        self.__class__.name = name
+
+p1 = Person()
+p1.changeName("rahul")
+print(p1.name)
+print(Person.name)
+
+# Method - 3 (use of classmethod)
+class Person:
+    name = "anyx"
+
+    # def changeName(self, name):
+    #     self.name = name
+
+    @classmethod
+    def changeName(cls, name):
+        cls.name = name
+
+p1 = Person()
+p1.changeName("rahul")
+print(p1.name)
+print(Person.name)
+
+
+# staticmethods (no change)
+# classmethods (class)
+# instancemethods (self)
+
+
+
+# property decorator
+
+class Student:
+    def __init__(self, phy, chem, math) -> None:
+        self.phy = phy
+        self.chem = chem
+        self.math = math
+        self.percentage = str((self.phy + self.chem + self.math) / 3) + "%"
+
+    def calcPercentage(self):
+        self.percentage = str((self.phy + self.chem + self.math) / 3) + "%"
+
+stu1 = Student(98, 97, 99)
+print(stu1.percentage)
+
+stu1.phy = 86
+print(stu1.phy)
+stu1.calcPercentage()
+print(stu1.percentage)
+
 
